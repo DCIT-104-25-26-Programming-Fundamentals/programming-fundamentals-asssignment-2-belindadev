@@ -83,3 +83,148 @@
 #include <iomanip>
 using namespace std;
 
+
+using namespace std;
+
+// Struct to hold student information
+struct Student {
+    string name;
+    int id;
+    vector<double> scores;
+};
+
+// Function to calculate average score of a student
+double calculateAverage(const vector<double>& scores) {
+    if (scores.empty()) return 0.0;
+    double sum = 0.0;
+    for (double score : scores) {
+        sum += score;
+    }
+    return sum / scores.size();
+}
+
+// 1. Add a Student
+void addStudent(vector<Student>& students) {
+    Student s;
+    cout << "Student name: ";
+    cin.ignore();
+    getline(cin, s.name);
+    
+    cout << "Student ID: ";
+    cin >> s.id;
+    
+    int numScores;
+    cout << "How many scores? ";
+    cin >> numScores;
+    
+    for (int i = 1; i <= numScores; ++i) {
+        double score;
+        cout << "Enter score " << i << ": ";
+        cin >> score;
+        s.scores.push_back(score);
+    }
+    
+    students.push_back(s);
+    cout << "Student \"" << s.name << "\" added successfully.\n";
+}
+
+// 2. Display All Students
+void displayAllStudents(const vector<Student>& students) {
+    if (students.empty()) {
+        cout << "\nNo students have been added yet.\n";
+        return;
+    }
+
+    cout << "\n-------------------------------------------------------------------\n";
+    cout << left << setw(20) << "Name" 
+         << setw(12) << "ID" 
+         << setw(25) << "Scores" 
+         << setw(10) << "Average" << "\n";
+    cout << "-------------------------------------------------------------------\n";
+
+    cout << fixed << setprecision(2);
+    for (const auto& student : students) {
+        string scoresStr = "";
+        for (size_t i = 0; i < student.scores.size(); ++i) {
+            scoresStr += to_string((int)student.scores[i]);
+            if (i < student.scores.size() - 1) scoresStr += ", ";
+        }
+        
+        double avg = calculateAverage(student.scores);
+        
+        cout << left << setw(20) << student.name 
+             << setw(12) << student.id 
+             << setw(25) << scoresStr 
+             << setw(10) << avg << "\n";
+    }
+    cout << "-------------------------------------------------------------------\n";
+}
+
+// 3. Calculate Average Score for a Specific Student
+void calculateSpecificAverage(const vector<Student>& students) {
+    if (students.empty()) {
+        cout << "\nNo students found in system.\n";
+        return;
+    }
+
+    int targetId;
+    cout << "Enter student ID: ";
+    cin >> targetId;
+
+    bool found = false;
+    for (const auto& student : students) {
+        if (student.id == targetId) {
+            double avg = calculateAverage(student.scores);
+            cout << fixed << setprecision(2);
+            cout << student.name << "'s average score: " << avg << "\n";
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Error: Student ID " << targetId << " not found.\n";
+    }
+}
+
+// Display Menu
+void showMenu() {
+    cout << "\n====================================\n";
+    cout << "   STUDENT RECORD SYSTEM MENU\n";
+    cout << "====================================\n";
+    cout << "1. Add student\n";
+    cout << "2. Display all students\n";
+    cout << "3. Calculate average score\n";
+    cout << "4. Quit\n";
+    cout << "Enter your choice (1-4): ";
+}
+
+int main() {
+    vector<Student> students;
+    int choice = 0;
+
+    while (choice != 4) {
+        showMenu();
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addStudent(students);
+                break;
+            case 2:
+                displayAllStudents(students);
+                break;
+            case 3:
+                calculateSpecificAverage(students);
+                break;
+            case 4:
+                cout << "Exiting program. Goodbye!\n";
+                break;
+            default:
+                cout << "Invalid choice! Please enter a number between 1 and 4.\n";
+                break;
+        }
+    }
+
+    return 0;
+}

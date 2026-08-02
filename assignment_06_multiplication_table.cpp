@@ -57,3 +57,55 @@
 #include <iostream>
 using namespace std;
 
+
+
+// Function to print a single multiplication table for a given number
+void printSingleTable(int num) {
+    cout << "Multiplication Table for " << num << ":" << endl;
+    for (int i = 1; i <= 12; i++) {
+        cout << num << " x " << i << " = " << (num * i) << endl;
+    }
+}
+
+// PART A Function
+void partA() {
+    int num;
+    cout << "Enter a number: ";
+    cin >> num;
+
+    if (num <= 0) {
+        cout << "Error: Please enter a positive integer." << endl;
+        return;
+    }
+
+    printSingleTable(num);
+}
+
+// PART B Function
+void partB() {
+    int n;
+    cout << "Enter a number N: ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "Error: Please enter a positive integer." << endl;
+        return;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        printSingleTable(i);
+        if (i < n) {
+            cout << "--------------------" << endl;
+        }
+    }
+}
+
+int main() {
+    cout << "=== PART A ===" << endl;
+    partA();
+
+    cout << "\n=== PART B ===" << endl;
+    partB();
+
+    return 0;
+}

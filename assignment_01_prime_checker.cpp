@@ -33,7 +33,37 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
-
 #include <iostream>
-using namespace std;
+
+
+bool isPrime(int num) {
+    // Numbers less than 2 are NOT prime
+    if (num < 2) {
+        return false;
+    }
+
+    // Check for divisors from 2 up to sqrt(num)
+    for (int i = 2; i * i <= num; ++i) {
+        if (num % i == 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    int number;
+
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+
+    if (isPrime(number)) {
+        std::cout << number << " is a prime number." << std::endl;
+    } else {
+        std::cout << number << " is NOT a prime number." << std::endl;
+    }
+
+    return 0;
+}
 

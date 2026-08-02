@@ -42,3 +42,79 @@
 #include <iostream>
 using namespace std;
 
+
+
+// Function to calculate the sum of array elements using loops
+double calculateSum(const double arr[], int n) {
+    double total = 0;
+    for (int i = 0; i < n; i++) {
+        total += arr[i];
+    }
+    return total;
+}
+
+// Function to calculate the average
+double calculateAverage(double sum, int n) {
+    return sum / n;
+}
+
+// Function to find the maximum value in the array
+double findMax(const double arr[], int n) {
+    double maxVal = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > maxVal) {
+            maxVal = arr[i];
+        }
+    }
+    return maxVal;
+}
+
+// Function to find the minimum value in the array
+double findMin(const double arr[], int n) {
+    double minVal = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < minVal) {
+            minVal = arr[i];
+        }
+    }
+    return minVal;
+}
+
+int main() {
+    int n;
+    cout << "How many numbers? ";
+    cin >> n;
+
+    // Requirement: N must be a positive integer. Print error message and stop if n <= 0.
+    if (n <= 0) {
+        cout << "Error: Number of elements must be a positive integer." << endl;
+        return 1;
+    }
+
+    // Allocate dynamic memory for the array
+    double* numbers = new double[n];
+
+    // Input elements
+    for (int i = 0; i < n; i++) {
+        cout << "Enter number " << (i + 1) << ": ";
+        cin >> numbers[i];
+    }
+
+    // Calculations using separate functions
+    double sum = calculateSum(numbers, n);
+    double avg = calculateAverage(sum, n);
+    double maxVal = findMax(numbers, n);
+    double minVal = findMin(numbers, n);
+
+    // Output results matching the expected format
+    cout << "\nResults:" << endl;
+    cout << "Sum:       " << sum << endl;
+    cout << "Average:   " << avg << endl;
+    cout << "Maximum:   " << maxVal << endl;
+    cout << "Minimum:   " << minVal << endl;
+
+    // Free allocated memory
+    delete[] numbers;
+
+    return 0;
+}
